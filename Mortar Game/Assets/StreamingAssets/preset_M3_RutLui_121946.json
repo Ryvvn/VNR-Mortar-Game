@@ -1,0 +1,18 @@
+{
+  "missionId": "M3_RutLui_121946",
+  "timerSec": 420,
+  "baseHP": 4,
+  "mortar": {
+    "rangeMaxM": 40.0,
+    "reloadSec": 2.0,
+    "coarseStepM": 20.0,
+    "fineStepM": 5.0,
+    "baseSpreadM": 2.5,
+    "spotterSpreadM": 1.0,
+    "flightTimeMin": 1.2,
+    "flightTimeMax": 2.4
+  },
+  "streakRewards": { "smokeAt": 3, "hePlusAt": 5 },
+  "enemy": { "patrolSpeedMps": 1.7, "speedBuffOnWrongAnswer": 0.1, "speedBuffDurationSec": 10 },
+  "waves": ["W0","W1","W2","W3","W4","Final"]
+}
