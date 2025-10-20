@@ -144,6 +144,16 @@ MonoBehaviour:
   tracerShaderNameSecondaryFallback: Legacy Shaders/Particles/Additive
   keepTracerAfterImpact: 1
   tracerPersistSeconds: 1.5
+  explosionVFX_HE: {fileID: 4498674577480010707, guid: 7150965612d47534eb0378090c9744e8,
+    type: 3}
+  explosionVFX_HEPlus: {fileID: 7348253175577310371, guid: ed27e91585e61bb448747a264a859b84,
+    type: 3}
+  smokeVFX: {fileID: 1333227396186248695, guid: 054fc8996d1dc014d8c4cc3a0d4ac839,
+    type: 3}
+  explosionSFX_HE: {fileID: 8300000, guid: 0482f5f76697ec54e8fe5e70999724f0, type: 3}
+  explosionSFX_HEPlus: {fileID: 8300000, guid: 0482f5f76697ec54e8fe5e70999724f0, type: 3}
+  smokeSFX: {fileID: 0}
+  vfxAutoDestroySeconds: 3
 --- !u!54 &983754872795668595
 Rigidbody:
   m_ObjectHideFlags: 0

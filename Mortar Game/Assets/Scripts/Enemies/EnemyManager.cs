@@ -17,12 +17,19 @@ namespace MortarGame.Enemies
             _enemies.Remove(enemy);
         }
 
+        public int GetAliveCount()
+        {
+            _enemies.RemoveAll(e => e == null);
+            return _enemies.Count;
+        }
+
         public void ApplyGlobalSpeedBuff(float percent, float duration)
         {
+            // Clean up null entries before applying
+            _enemies.RemoveAll(e => e == null);
             foreach (var e in _enemies)
             {
-                if (e != null)
-                    e.ApplyGlobalSpeedBuff(percent, duration);
+                e.ApplyGlobalSpeedBuff(percent, duration);
             }
         }
     }

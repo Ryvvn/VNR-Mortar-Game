@@ -180,6 +180,21 @@ namespace MortarGame.Weapons
             SetElevationDegrees(elev);
         }
 
+        // Map desired range to elevation using a simple ballistic model: R = v^2/g * sin(2θ)
+        // If useHighAngle is true, chooses the high-angle solution (θ_high = 90° - θ_low)
+        public void SetFromBearingRangeBallistic(float bearingDeg, float desiredRangeM, float launchSpeed, bool useHighAngle = true)
+        {
+            SetYawDegrees(bearingDeg);
+            float g = Mathf.Max(0.0001f, Physics.gravity.magnitude);
+            float v = Mathf.Max(0.0001f, launchSpeed);
+            float s = desiredRangeM * g / (v * v);
+            s = Mathf.Clamp(s, 0f, 1f);
+            float thetaLowDeg = 0.5f * Mathf.Rad2Deg * Mathf.Asin(s);
+            float thetaDeg = useHighAngle ? (90f - thetaLowDeg) : thetaLowDeg;
+            // Clamp to rig limits
+            SetElevationDegrees(Mathf.Clamp(thetaDeg, elevationMinDeg, elevationMaxDeg));
+        }
+
         private void HandleLocalInput()
         {
             float mouseX = Input.GetAxis("Mouse X");
@@ -192,12 +207,12 @@ namespace MortarGame.Weapons
             // Up/Down adjust elevation (Shift for fine)
             bool fine = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
             float step = fine ? fineElevationStepDeg : coarseElevationStepDeg;
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (Input.GetKeyDown(KeyCode.W))
             {
 
                 NudgeElevationDegrees(+step);
             }
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+            if (Input.GetKeyDown(KeyCode.S))
             {
 
                 NudgeElevationDegrees(-step);

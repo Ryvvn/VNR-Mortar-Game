@@ -1,5 +1,7 @@
 using UnityEngine;
 using MortarGame.Combat;
+using MortarGame.Core;
+using MortarGame.Gameplay;
 
 namespace MortarGame.Enemies
 {
@@ -33,6 +35,10 @@ namespace MortarGame.Enemies
             }
         }
 
+        // Expose current ground speed and velocity for lead calculations
+        public float GetCurrentSpeed() => baseSpeed * _speedMultiplier * _slowMultiplier;
+        public Vector3 GetGroundVelocity() => transform.forward * GetCurrentSpeed();
+
         public void ApplyGlobalSpeedBuff(float percent, float duration)
         {
             // percent e.g. 0.1 (10%)
@@ -65,8 +71,23 @@ namespace MortarGame.Enemies
 
         private void Die()
         {
+            // Unregister from EnemyManager before destroying
+            if (GameManager.Instance && GameManager.Instance.enemyManager)
+            {
+
+                GameManager.Instance.enemyManager.Unregister(this);
+            }
             // TODO: VFX/SFX
             Destroy(gameObject);
+        }
+
+        private void OnDestroy()
+        {
+            // Safety: ensure unregistration in case destroyed by other means
+            if (GameManager.Instance && GameManager.Instance.enemyManager)
+            {
+                GameManager.Instance.enemyManager.Unregister(this);
+            }
         }
     }
 }

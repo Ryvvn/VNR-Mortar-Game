@@ -1,6 +1,7 @@
 using UnityEngine;
 using MortarGame.Gameplay;
 using MortarGame.Combat;
+using System;
 
 namespace MortarGame.Combat
 {
@@ -37,6 +38,15 @@ namespace MortarGame.Combat
         public bool keepTracerAfterImpact = true;
         [Tooltip("How long the trail should remain after impact")]
         public float tracerPersistSeconds = 1.5f;
+
+        [Header("Impact VFX/SFX")]
+        [Tooltip("Explosion VFX used for HE shells")] public ParticleSystem explosionVFX_HE;
+        [Tooltip("Bigger explosion VFX used for HE+ shells")] public ParticleSystem explosionVFX_HEPlus;
+        [Tooltip("Smoke VFX used for Smoke shells")] public ParticleSystem smokeVFX;
+        [Tooltip("Explosion sound for HE shells")] public AudioClip explosionSFX_HE;
+        [Tooltip("Explosion sound for HE+ shells")] public AudioClip explosionSFX_HEPlus;
+        [Tooltip("Pop/woosh sound for smoke shells")] public AudioClip smokeSFX;
+        [Tooltip("Auto destroy spawned VFX after this many seconds")] public float vfxAutoDestroySeconds = 3f;
 
         private Rigidbody _rb;
         private TrailRenderer _trail;
@@ -206,8 +216,12 @@ namespace MortarGame.Combat
 
 
 
+        public event Action<Vector3> OnExploded; // fired when the shell explodes; provides impact position
+
         private void Explode(Vector3 center)
         {
+            // Notify listeners before destroying
+            OnExploded?.Invoke(center);
             float radius;
             float damage;
             switch (ammoType)
@@ -251,7 +265,47 @@ namespace MortarGame.Combat
                 Destroy(trailGO, Mathf.Max(0.05f, tracerPersistSeconds + 0.05f));
             }
 
-            // TODO: VFX/SFX, screen shake
+            // Spawn impact VFX/SFX
+            if (ammoType == AmmoType.HE)
+            {
+                if (explosionVFX_HE != null)
+                {
+                    var vfx = Instantiate(explosionVFX_HE, center, Quaternion.identity);
+                    vfx.Play();
+                    Destroy(vfx.gameObject, vfxAutoDestroySeconds);
+                }
+                if (explosionSFX_HE != null)
+                {
+                    AudioSource.PlayClipAtPoint(explosionSFX_HE, center, 1f);
+                }
+            }
+            else if (ammoType == AmmoType.HEPlus)
+            {
+                if (explosionVFX_HEPlus != null)
+                {
+                    var vfx = Instantiate(explosionVFX_HEPlus, center, Quaternion.identity);
+                    vfx.Play();
+                    Destroy(vfx.gameObject, vfxAutoDestroySeconds);
+                }
+                if (explosionSFX_HEPlus != null)
+                {
+                    AudioSource.PlayClipAtPoint(explosionSFX_HEPlus, center, 1f);
+                }
+            }
+            else if (ammoType == AmmoType.Smoke)
+            {
+                if (smokeVFX != null)
+                {
+                    var vfx = Instantiate(smokeVFX, center, Quaternion.identity);
+                    vfx.Play();
+                    Destroy(vfx.gameObject, vfxAutoDestroySeconds);
+                }
+                if (smokeSFX != null)
+                {
+                    AudioSource.PlayClipAtPoint(smokeSFX, center, 0.9f);
+                }
+            }
+
             Destroy(gameObject);
         }
     }

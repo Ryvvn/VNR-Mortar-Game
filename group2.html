@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dòng thời gian tương tác: Các phong trào yêu nước Việt Nam trước 1930</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #b91c1c;
+      --accent-600: #b91c1c;
+      --line: #e5e7eb;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --surface: #ffffff;
+      --shadow: 0 1px 2px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: linear-gradient(135deg, #f3f4f6 0%, #ffffff 55%, #f9fafb 100%);
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 32px 20px; }
+    .page-title { font-size: clamp(1.6rem, 2.5vw, 2.25rem); font-weight: 700; margin: 0 0 8px; }
+    .page-desc { color: var(--muted); margin: 0 0 20px; font-size: .95rem; }
+    .accent-bar { width: 96px; height: 4px; background: var(--accent); border-radius: 999px; margin: 16px 0 28px; }
+
+    /* Timeline */
+    .timeline { position: relative; }
+    .axis { position: absolute; left: 50%; top: 0; bottom: 0; width: 3px; transform: translateX(-50%); background: var(--line); }
+    .timeline-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px; }
+
+    .item { display: grid; grid-template-columns: 1fr 56px 1fr; align-items: stretch; gap: 18px; animation: fadeUp .55s ease-out both; }
+    .item { --i: 0; animation-delay: calc(var(--i) * 80ms); }
+
+    .dot-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
+    .dot { position: relative; width: 18px; height: 18px; border-radius: 999px; background: #fff; border: 3px solid #d1d5db; box-shadow: 0 1px 2px rgba(0,0,0,.08); transition: transform .25s ease, border-color .25s ease; }
+    .item:hover .dot { transform: scale(1.08); border-color: var(--accent); }
+    .dot::after { content: ""; position: absolute; inset: -8px; border-radius: 999px; background: rgba(185,28,28,0); transition: background .25s ease; }
+    .item:hover .dot::after { background: rgba(185,28,28,.12); }
+
+    .card { background: var(--surface); border: 1px solid #e5e7eb; border-radius: 14px; padding: 16px 18px; box-shadow: var(--shadow);
+            transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; outline: none; }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 2px 10px rgba(0,0,0,.08), 0 12px 26px rgba(0,0,0,.10); border-color: #d1d5db; }
+    .card:focus-visible { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(185,28,28,.15), var(--shadow); }
+
+    .card-head { display: flex; align-items: start; justify-content: space-between; gap: 12px; }
+    .card-title { font-weight: 700; font-size: 1.05rem; margin: 0; }
+    .card-sub { color: var(--muted); margin: 4px 0 0; font-size: .9rem; }
+    .date { display: inline-flex; align-items: center; border-radius: 999px; border: 1px solid rgba(185,28,28,.22); color: var(--accent);
+            background: rgba(185,28,28,.06); padding: 4px 10px; font-size: .8rem; font-weight: 600; white-space: nowrap; }
+    .card-body { margin-top: 10px; font-size: .95rem; line-height: 1.6; color: #374151; }
+    .card-body p { margin: 6px 0; }
+
+    /* Placement helpers */
+    .left .col-left { opacity: 1; }
+    .left .col-right { opacity: 0; }
+    .right .col-right { opacity: 1; }
+    .right .col-left { opacity: 0; }
+
+    /* Conclusion box */
+    .conclusion { margin: 34px auto 8px; max-width: 840px; background: #f3f4f6; border: 3px solid #2563eb; border-radius: 16px; padding: 18px 20px; box-shadow: var(--shadow);
+                  animation: fadeUp .6s ease-out both; }
+    .conclusion h2 { margin: 0 0 8px; font-size: 1.25rem; color: #1d4ed8; }
+    .conclusion ul { margin: 10px 0 0 18px; padding: 0; }
+    .conclusion li { margin-bottom: 8px; }
+
+    /* Animations */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Responsive */
+    @media (max-width: 860px) {
+      .item { grid-template-columns: 1fr; }
+      .axis { display: none; }
+      .dot-wrap { display: none; }
+      .left .col-right, .right .col-left { display: none; }
+      .card { padding: 14px 16px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .item, .conclusion { animation: none; }
+      .card, .dot { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="page-title">Dòng thời gian tương tác: Các phong trào yêu nước Việt Nam trước 1930</h1>
+    <p class="page-desc">Trục thời gian dọc trung tâm, thẻ nội dung sắp xếp đối xứng hai bên với hiệu ứng hover và chuyển động mượt mà.</p>
+    <div class="accent-bar"></div>
+
+    <section class="timeline" aria-label="Timeline">
+      <div class="axis" aria-hidden="true"></div>
+      <ul class="timeline-list" role="list">
+        <!-- Left: Cần Vương -->
+        <li class="item left" style="--i:1">
+          <div class="col-left">
+            <article class="card" tabindex="0">
+              <header class="card-head">
+                <div>
+                  <h3 class="card-title">Phong trào Cần Vương (1885–1896)</h3>
+                  <p class="card-sub">Lãnh đạo: Vua Hàm Nghi, Tôn Thất Thuyết</p>
+                </div>
+                <span class="date">Cuối TK XIX</span>
+              </header>
+              <div class="card-body">
+                <p>Mục tiêu: “Cần Vương cứu nước”, khôi phục chế độ phong kiến.</p>
+              </div>
+            </article>
+          </div>
+          <div class="dot-wrap"><span class="dot" aria-hidden="true"></span></div>
+          <div class="col-right"></div>
+        </li>
+
+        <!-- Right: Bạo động (Phan Bội Châu) -->
+        <li class="item right" style="--i:2">
+          <div class="col-left"></div>
+          <div class="dot-wrap"><span class="dot" aria-hidden="true"></span></div>
+          <div class="col-right">
+            <article class="card" tabindex="0">
+              <header class="card-head">
+                <div>
+                  <h3 class="card-title">Xu hướng Bạo động (Phan Bội Châu)</h3>
+                  <p class="card-sub">Phong trào Đông Du, Việt Nam Quang phục Hội</p>
+                </div>
+                <span class="date">Đầu TK XX</span>
+              </header>
+              <div class="card-body">
+                <p>Chủ trương: Dùng vũ trang, dựa vào Nhật Bản để đánh Pháp.</p>
+              </div>
+            </article>
+          </div>
+        </li>
+
+        <!-- Left: Hương Khê -->
+        <li class="item left" style="--i:3">
+          <div class="col-left">
+            <article class="card" tabindex="0">
+              <header class="card-head">
+                <div>
+                  <h3 class="card-title">Khởi nghĩa Hương Khê (Thất bại 1896)</h3>
+                  <p class="card-sub">Lãnh đạo: Phan Đình Phùng</p>
+                </div>
+                <span class="date">1896</span>
+              </header>
+              <div class="card-body">
+                <p>Ý nghĩa thất bại: chấm dứt vai trò lãnh đạo của giai cấp phong kiến.</p>
+              </div>
+            </article>
+          </div>
+          <div class="dot-wrap"><span class="dot" aria-hidden="true"></span></div>
+          <div class="col-right"></div>
+        </li>
+
+        <!-- Right: Cải cách (Phan Châu Trinh) -->
+        <li class="item right" style="--i:4">
+          <div class="col-left"></div>
+          <div class="dot-wrap"><span class="dot" aria-hidden="true"></span></div>
+          <div class="col-right">
+            <article class="card" tabindex="0">
+              <header class="card-head">
+                <div>
+                  <h3 class="card-title">Xu hướng Cải cách (Phan Châu Trinh)</h3>
+                  <p class="card-sub">Nâng cao dân trí, dựa vào Pháp để cải cách</p>
+                </div>
+                <span class="date">Đầu TK XX</span>
+              </header>
+              <div class="card-body">
+                <p>Hạn chế: ảo tưởng vào thiện chí của kẻ xâm lược.</p>
+              </div>
+            </article>
+          </div>
+        </li>
+
+        <!-- Left: Nông dân Yên Thế -->
+        <li class="item left" style="--i:5">
+          <div class="col-left">
+            <article class="card" tabindex="0">
+              <header class="card-head">
+                <div>
+                  <h3 class="card-title">Phong trào nông dân Yên Thế</h3>
+                  <p class="card-sub">Lãnh đạo: Hoàng Hoa Thám (Đề Thám)</p>
+                </div>
+                <span class="date">Cuối TK XIX</span>
+              </header>
+              <div class="card-body">
+                <p>Hạn chế: mang nặng “cốt cách phong kiến”, tự phát, thiếu đường lối.</p>
+              </div>
+            </article>
+          </div>
+          <div class="dot-wrap"><span class="dot" aria-hidden="true"></span></div>
+          <div class="col-right"></div>
+        </li>
+
+        <!-- Right: VNQDD -->
+        <li class="item right" style="--i:6">
+          <div class="col-left"></div>
+          <div class="dot-wrap"><span class="dot" aria-hidden="true"></span></div>
+          <div class="col-right">
+            <article class="card" tabindex="0">
+              <header class="card-head">
+                <div>
+                  <h3 class="card-title">Việt Nam Quốc dân Đảng (VNQDD)</h3>
+                  <p class="card-sub">Khởi nghĩa Yên Bái (1930)</p>
+                </div>
+                <span class="date">1930</span>
+              </header>
+              <div class="card-body">
+                <p>Ý nghĩa thất bại: chấm dứt vai trò của khuynh hướng tư sản.</p>
+              </div>
+            </article>
+          </div>
+        </li>
+      </ul>
+
+      <div class="conclusion" role="note" aria-label="Nguyên nhân thất bại">
+        <h2>Nguyên nhân chung dẫn đến thất bại</h2>
+        <ul>
+          <li>Thiếu đường lối chính trị đúng đắn để giải quyết mâu thuẫn dân tộc và giai cấp.</li>
+          <li>Thiếu một tổ chức cách mạng vững mạnh để tập hợp và lãnh đạo toàn dân.</li>
+          <li>Chưa xác định được phương pháp đấu tranh phù hợp để đánh bại kẻ thù.</li>
+        </ul>
+        <p style="font-weight:600; margin-top: 10px">→ Đặt ra yêu cầu phải tìm ra một con đường cứu nước mới với một giai cấp lãnh đạo tiên phong.</p>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

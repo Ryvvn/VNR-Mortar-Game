@@ -1,48 +1,52 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using MortarGame.Utility;
 using MortarGame.Core;
 using MortarGame.Gameplay;
+using MortarGame.Utility;
 
 namespace MortarGame.Quiz
 {
     public class QuizManager : MonoBehaviour
     {
+        public GameManager GM => GameManager.Instance;
         public string quizFileName = "quiz_mission3.csv";
         private List<QuizQuestion> _questions = new List<QuizQuestion>();
         private int _currentIndex = -1;
+
         private int _streak = 0;
+        private int _score = 0;
 
         public int Streak => _streak;
+        public int Score => _score;
         public QuizQuestion Current => (_currentIndex >= 0 && _currentIndex < _questions.Count) ? _questions[_currentIndex] : null;
 
         private void Awake()
         {
-            LoadQuiz();
+            if (_questions.Count == 0)
+                LoadQuestions();
         }
 
-        private void LoadQuiz()
+        public void LoadQuestions()
         {
+            _questions.Clear();
             var path = Path.Combine(Application.streamingAssetsPath, quizFileName);
             if (!File.Exists(path))
             {
-                Debug.LogError($"Quiz file not found: {path}");
+                Debug.LogError($"QuizManager: Quiz file not found at {path}");
                 return;
             }
-            var rows = SimpleCSV.Parse(path);
-            if (rows.Count <= 1) return; // header + data
-            for (int i = 1; i < rows.Count; i++)
+            var lines = File.ReadAllLines(path);
+            foreach (var line in lines)
             {
-                var r = rows[i];
-                if (r.Length < 7) continue;
-                _questions.Add(new QuizQuestion
-                {
-                    question = r[0], A = r[1], B = r[2], C = r[3], D = r[4], correct = string.IsNullOrEmpty(r[5]) ? 'A' : r[5][0], tag = r[6]
-                });
+                // Parse line and add to questions if valid
+                var q = QuizCSVParser.ParseLine(line);
+                if (q != null) _questions.Add(q);
             }
-            Debug.Log($"Loaded {_questions.Count} quiz questions.");
+            _currentIndex = -1;
         }
+
+
 
         public QuizQuestion NextQuestion()
         {
@@ -56,8 +60,24 @@ namespace MortarGame.Quiz
             var correct = (char.ToUpperInvariant(choice) == char.ToUpperInvariant(Current.correct));
             if (correct)
             {
-                GameManager.Instance.ammoManager.AddHE(1);
+                // Reward ammo matching the attempted ammo type (default HE)
+                var attempted = GameManager.Instance.lastAttemptedAmmoType;
+                switch (attempted)
+                {
+                    case AmmoType.Smoke:
+                        GameManager.Instance.ammoManager.AddSmoke(1);
+                        break;
+                    case AmmoType.HEPlus:
+                        GameManager.Instance.ammoManager.AddHEPlus(1);
+                        break;
+                    case AmmoType.HE:
+                    default:
+                        GameManager.Instance.ammoManager.AddHE(1);
+                        break;
+                }
+
                 _streak++;
+                _score += 10; // simple scoring: +10 per correct answer
                 HandleStreakRewards();
             }
             else
@@ -72,14 +92,26 @@ namespace MortarGame.Quiz
 
         private void HandleStreakRewards()
         {
-            var rewards = GameManager.Instance.Config.streakRewards;
-            if (_streak == rewards.smokeAt)
+            // Preserve any existing config-based streak rewards
+            var cfg = GameManager.Instance.Config;
+            if (cfg != null)
             {
-                GameManager.Instance.ammoManager.AddSmoke(1);
+                var rewards = cfg.streakRewards;
+                if (rewards.smokeAt > 0 && _streak % rewards.smokeAt == 0)
+                {
+                    GameManager.Instance.ammoManager.AddSmoke(1);
+                }
+                if (rewards.hePlusAt > 0 && _streak % rewards.hePlusAt == 0)
+                {
+                    GameManager.Instance.ammoManager.AddHEPlus(1);
+                }
             }
-            if (_streak == rewards.hePlusAt)
+
+            // Hidden Easter Egg: after reaching a streak of 5,
+            // each subsequent correct answer in streak 6-10 grants 1 smoke round.
+            if (_streak >= 6 && _streak <= 10)
             {
-                GameManager.Instance.ammoManager.AddHEPlus(1);
+                GameManager.Instance.ammoManager?.AddSmoke(1);
             }
         }
     }

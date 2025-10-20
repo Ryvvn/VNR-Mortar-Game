@@ -1,9 +1,9 @@
 {
   "missionId": "M3_RutLui_121946",
-  "timerSec": 420,
+  "timerSec": 480,
   "baseHP": 4,
   "mortar": {
-    "rangeMaxM": 40.0,
+    "rangeMaxM": 90.0,
     "reloadSec": 2.0,
     "coarseStepM": 20.0,
     "fineStepM": 5.0,
@@ -12,7 +12,42 @@
     "flightTimeMin": 1.2,
     "flightTimeMax": 2.4
   },
-  "streakRewards": { "smokeAt": 3, "hePlusAt": 5 },
-  "enemy": { "patrolSpeedMps": 1.7, "speedBuffOnWrongAnswer": 0.1, "speedBuffDurationSec": 10 },
-  "waves": ["W0","W1","W2","W3","W4","Final"]
+  "streakRewards": {
+    "smokeAt": 3,
+    "hePlusAt": 5
+  },
+  "enemy": {
+    "patrolSpeedMps": 1.7,
+    "speedBuffOnWrongAnswer": 0.1,
+    "speedBuffDurationSec": 10
+  },
+  "waves": [
+    "W0",
+    "W1",
+    "W2",
+    "W3",
+    "W4",
+    "Final"
+  ],
+  "scenarioMode": "Static",
+  "staticScenario": {
+    "randomMeshResourceNames": [],
+    "randomPrefabResourceNames": [],
+    "prefabPointsRanges": [],
+    "meshPointsRanges": [],
+    "minRandomCount": 1,
+    "maxRandomCount": 3,
+    "randomRadius": 12.0,
+    "pointsPerRandom": 10,
+    "pointsRandomMin": 5,
+    "pointsRandomMax": 20,
+    "pointsPerObjective": 50,
+    "pointsForFinalBase": 200,
+    "objectiveCount": 3,
+    "tanksPerObjective": 1,
+    "distanceMinFactor": 0.6,
+    "distanceMaxFactor": 0.9,
+    "angleSpreadDeg": 25.0,
+    "secondsBetweenObjectives": 10.0
+  }
 }

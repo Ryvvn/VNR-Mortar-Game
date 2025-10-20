@@ -14,7 +14,12 @@ namespace MortarGame.Config
         public StreakRewards streakRewards;
         public EnemySettings enemy;
         public string[] waves;
+        // Scenario mode: "Waves" (default) or "Static"
+        public string scenarioMode = "Waves";
 
+        // Optional: settings for Static scenario mode, including random meshes/prefabs and scoring
+        public StaticScenarioSettings staticScenario;
+        
         [Serializable]
         public class MortarSettings
         {
@@ -41,6 +46,36 @@ namespace MortarGame.Config
             public float patrolSpeedMps;
             public float speedBuffOnWrongAnswer;
             public float speedBuffDurationSec;
+        }
+
+        [Serializable]
+        public class StaticScenarioSettings
+        {
+            // Resource names under a Resources/ folder
+            public string[] randomMeshResourceNames;
+            public string[] randomPrefabResourceNames;
+            // Optional per-resource point ranges (use resourceName paths like "Props/Crate")
+            [Serializable]
+            public class PointsRange { public string resourceName; public int min; public int max; }
+            public PointsRange[] prefabPointsRanges;
+            public PointsRange[] meshPointsRanges;
+            // spawn counts and placement
+            public int minRandomCount = 1;
+            public int maxRandomCount = 3;
+            public float randomRadius = 10f;
+            // scoring
+            public int pointsPerRandom = 10;
+            public int pointsRandomMin = 0;
+            public int pointsRandomMax = 0;
+            public int pointsPerObjective = 50;
+            public int pointsForFinalBase = 200;
+            // pacing and placement
+            public int objectiveCount = 3;
+            public int tanksPerObjective = 1;
+            public float distanceMinFactor = 0.6f;
+            public float distanceMaxFactor = 0.9f;
+            public float angleSpreadDeg = 25f;
+            public float secondsBetweenObjectives = 10f;
         }
 
         public static MissionConfig LoadFromStreamingAssets(string fileName)
