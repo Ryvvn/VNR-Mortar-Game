@@ -2,6 +2,9 @@
 
 import React from "react";
 import { TimelineItem } from "@/data/timeline";
+import MapOverlay from "./MapOverlay";
+import PortraitGallery from "./PortraitGallery";
+import DocumentViewer from "./DocumentViewer";
 
 // Local cache for Wikipedia thumbnails to avoid repeated requests
 const wikiCache = new Map<string, string | null>();
@@ -116,6 +119,29 @@ export default function EventCard({ item, index, position = 'left' }: EventCardP
             {/* Summary text shown by default */}
             <div className="card-summary">
               <p className="card-text">{summaryText}</p>
+            </div>
+            
+            {/* Visual Enhancement Components */}
+            <div className="visual-enhancements">
+              {item.hasMapData && (
+                <MapOverlay 
+                  period={item.title}
+                  title={item.cardTitle}
+                  description={item.cardSummaryText || summaryText}
+                />
+              )}
+              {item.relatedFigures && item.relatedFigures.length > 0 && (
+                <PortraitGallery 
+                  period={item.title}
+                  relatedFigures={item.relatedFigures}
+                />
+              )}
+              {item.relatedDocuments && item.relatedDocuments.length > 0 && (
+                <DocumentViewer 
+                  period={item.title}
+                  relatedDocuments={item.relatedDocuments}
+                />
+              )}
             </div>
           </div>
         </div>
@@ -616,6 +642,21 @@ export default function EventCard({ item, index, position = 'left' }: EventCardP
 
         .card-link:hover::before {
           left: 100%;
+        }
+
+        .visual-enhancements {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin-top: 12px;
+          padding-top: 12px;
+          border-top: 1px solid rgba(226, 232, 240, 0.5);
+        }
+
+        @media (max-width: 768px) {
+          .visual-enhancements {
+            justify-content: center;
+          }
         }
 
         .card-link:hover {

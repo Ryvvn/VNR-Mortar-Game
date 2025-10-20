@@ -360,6 +360,7 @@ namespace MortarGame.UI
             var hud = FindObjectOfType<HUDController>();
             if (hud != null)
             {
+                Debug.Log($"QuestionPanelController: Updating HUD with streak: {quizManager.Streak}");
                 hud.UpdateStreak(quizManager.Streak);
                 hud.UpdateScore(quizManager.Score);
                 hud.UpdateAmmoWithSelection(GameManager.Instance.lastAttemptedAmmoType);

@@ -343,7 +343,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.32, z: -45.51}
+  m_LocalPosition: {x: 0, y: 1.92, z: -46.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -611,6 +611,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   quizFileName: quiz_mission3.csv
+  hUDController: {fileID: 1505865481}
 --- !u!1 &611625002
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,9 +641,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 699fa7c4dd4d08b4fa87d3a70a070f98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heRounds: 10
+  heRounds: 0
   smokeRounds: 0
-  hePlusRounds: 10
+  hePlusRounds: 0
+  smokeShotsFiredEasterEggCount: 0
+  easterEggSmokeBonusAwarded: 0
 --- !u!4 &611625004
 Transform:
   m_ObjectHideFlags: 0
@@ -1124,6 +1127,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 6536241684838678999}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1505865481 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4013548443873823926, guid: 2a96bba39c54be34e9055b8fbd99465e,
+    type: 3}
+  m_PrefabInstance: {fileID: 6536241684838678999}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e2f1b47067b91647ad8dfbf733427ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3240093552462049333
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1379,6 +1394,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067289521995549395, guid: 2a96bba39c54be34e9055b8fbd99465e,
+        type: 3}
+      propertyPath: m_text
+      value: 'Streak: 0'
       objectReference: {fileID: 0}
     - target: {fileID: 4730203697115264007, guid: 2a96bba39c54be34e9055b8fbd99465e,
         type: 3}

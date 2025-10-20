@@ -4,6 +4,7 @@ using UnityEngine;
 using MortarGame.Core;
 using MortarGame.Gameplay;
 using MortarGame.Utility;
+using MortarGame.UI;
 
 namespace MortarGame.Quiz
 {
@@ -16,7 +17,7 @@ namespace MortarGame.Quiz
 
         private int _streak = 0;
         private int _score = 0;
-
+        public HUDController hUDController;
         public int Streak => _streak;
         public int Score => _score;
         public QuizQuestion Current => (_currentIndex >= 0 && _currentIndex < _questions.Count) ? _questions[_currentIndex] : null;
@@ -62,26 +63,28 @@ namespace MortarGame.Quiz
             {
                 // Reward ammo matching the attempted ammo type (default HE)
                 var attempted = GameManager.Instance.lastAttemptedAmmoType;
-                switch (attempted)
-                {
-                    case AmmoType.Smoke:
-                        GameManager.Instance.ammoManager.AddSmoke(1);
-                        break;
-                    case AmmoType.HEPlus:
-                        GameManager.Instance.ammoManager.AddHEPlus(1);
-                        break;
-                    case AmmoType.HE:
-                    default:
-                        GameManager.Instance.ammoManager.AddHE(1);
-                        break;
-                }
-
+                // switch (attempted)
+                // {
+                //     case AmmoType.Smoke:
+                //         GameManager.Instance.ammoManager.AddSmoke(1);
+                //         break;
+                //     case AmmoType.HEPlus:
+                //         GameManager.Instance.ammoManager.AddHEPlus(1);
+                //         break;
+                //     case AmmoType.HE:
+                //     default:
+                //         GameManager.Instance.ammoManager.AddHE(1);
+                //         break;
+                // }
+                GameManager.Instance.ammoManager.AddHE(1);
                 _streak++;
                 _score += 10; // simple scoring: +10 per correct answer
+                Debug.Log($"QuizManager: Correct answer! Streak is now: {_streak}");
                 HandleStreakRewards();
             }
             else
             {
+                Debug.Log($"QuizManager: Wrong answer! Streak reset from {_streak} to 0");
                 _streak = 0;
                 // Apply enemy speed buff
                 var cfg = GameManager.Instance.Config.enemy;
@@ -92,6 +95,11 @@ namespace MortarGame.Quiz
 
         private void HandleStreakRewards()
         {
+            if (hUDController)
+            {
+                hUDController.UpdateStreak(_streak);
+            }
+
             // Preserve any existing config-based streak rewards
             var cfg = GameManager.Instance.Config;
             if (cfg != null)
@@ -113,6 +121,8 @@ namespace MortarGame.Quiz
             {
                 GameManager.Instance.ammoManager?.AddSmoke(1);
             }
+
+
         }
     }
 }

@@ -6,6 +6,10 @@ export type TimelineItem = {
   cardDetailedText?: string | string[]; // Mô tả chi tiết hiển thị khi hover
   url?: string; // Nguồn tham khảo
   imageQuery?: string; // Tùy chọn: tiêu đề bài Wikipedia dùng để tìm thumbnail
+  // Visual enhancement metadata
+  relatedFigures?: string[]; // Key figures involved in this event
+  relatedDocuments?: string[]; // Historical documents related to this event
+  hasMapData?: boolean; // Whether this event has territorial/map significance
 };
 
 export const timelineItems: TimelineItem[] = [
@@ -15,10 +19,13 @@ export const timelineItems: TimelineItem[] = [
     cardSubtitle: "Xây dựng chế độ mới",
     cardSummaryText: "Chính phủ lâm thời đề ra ba nhiệm vụ cấp bách: diệt giặc đói, diệt giặc dốt, diệt giặc ngoại xâm.",
     cardDetailedText:
-      "Sau khi tuyên bố độc lập, Chính phủ lâm thời Việt Nam Dân chủ Cộng hòa do Chủ tịch Hồ Chí Minh đứng đầu đã họp phiên đầu tiên tại Hà Nội. Trong bối cảnh đất nước vừa thoát khỏi ách thống trị của thực dân Pháp và phát xít Nhật, chính phủ non trẻ đã đề ra ba nhiệm vụ cấp bách: diệt giặc đói - giải quyết nạn đói hoành hành khắp nơi, diệt giặc dốt - xóa nạn mù chữ trong nhân dân, và diệt giặc ngoại xâm - bảo vệ độc lập dân tộc. Đồng thời, chính phủ quyết tâm củng cố chính quyền cách mạng, chống lại âm mưu tái xâm lược của Pháp, bài trừ các thế lực phản động trong nước và từng bước cải thiện đời sống của nhân dân sau nhiều năm chiến tranh.",
+      "Sau khi tuyên bố độc lập, Chính phủ lâm thời Việt Nam Dân chủ Cộng hòa do Chủ tịch Hồ Chí Minh đứng đầu đã họp phiên đầu tiên tại Hà Nội. Trong bối cảnh đất nước vừa thoát khỏi ách thống trị của thực dân Pháp và phát xít Nhật, chính phủ non trẻ đã đề ra ba nhiệm vụ cấp bách: diệt giặc đói - giải quyết nạn đói hoành hành khắp nơi, diệt giặc dốt - xóa nạn mù chữ trong nhân dân, và diệt giặc ngoại xâm - bảo vệ độc lập dân tộc. Đồng thời, chính phủ quyết tâm cố chính quyền cách mạng, chống lại âm mưu tái xâm lược của Pháp, bài trừ các thế lực phản động trong nước và từng bước cải thiện đời sống của nhân dân sau nhiều năm chiến tranh.",
     url:
       "https://lilac-wolf-31a.notion.site/Ch-ng-2-ng-l-nh-o-2-cu-c-kh-ng-chi-n-ho-n-th-nh-gi-i-ph-ng-d-n-t-c-th-ng-nh-t-t-n-c-1945-28c775060d0080e2b7d6d78814df08b4",
     imageQuery: "Chính phủ Cách mạng lâm thời Việt Nam Dân chủ Cộng hòa",
+    relatedFigures: ["ho-chi-minh", "pham-van-dong", "truong-chinh"],
+    relatedDocuments: ["independence-declaration"],
+    hasMapData: true,
   },
   {
     title: "17–24/09/1945",
@@ -41,6 +48,8 @@ export const timelineItems: TimelineItem[] = [
     url:
       "https://lilac-wolf-31a.notion.site/Ch-ng-2-ng-l-nh-o-2-cu-c-kh-ng-chi-n-ho-n-th-nh-gi-i-ph-ng-d-n-t-c-th-ng-nh-t-t-n-c-1945-28c775060d0080e2b7d6d78814df08b4",
     imageQuery: "Nam Bộ kháng chiến",
+    relatedFigures: ["jean-leclerc", "vo-nguyen-giap"],
+    hasMapData: true,
   },
   {
     title: "25/10/1945",
@@ -111,36 +120,46 @@ export const timelineItems: TimelineItem[] = [
     title: "28/02/1946",
     cardTitle: "Hiệp ước Trùng Khánh (Hoa – Pháp)",
     cardSubtitle: "Bối cảnh ngoại giao",
+    cardSummaryText: "Trung Quốc và Pháp ký hiệp ước, đồng ý rút quân khỏi miền Bắc Việt Nam.",
     cardDetailedText:
       "Hiệp ước Trùng Khánh được ký kết giữa Trung Hoa Dân Quốc và Pháp tại thủ đô Trùng Khánh đã tạo ra một bước ngoặt quan trọng trong cục diện chính trị khu vực Đông Dương. Theo thỏa thuận này, Trung Quốc đồng ý rút quân khỏi miền Bắc Việt Nam và cho phép quân Pháp trở lại, đổi lại Pháp nhượng bộ một số quyền lợi kinh tế và chính trị cho Trung Quốc tại Đông Dương. Hiệp ước này đặt Việt Nam vào tình thế khó khăn khi phải đối mặt trực tiếp với quân Pháp mà không còn 'lá chắn' từ quân Tưởng. Tuy nhiên, lãnh đạo Việt Nam đã xử lý tình hình một cách khéo léo, tận dụng khoảng thời gian trước khi quân Pháp tiến vào để củng cố lực lượng, đồng thời duy trì thế chủ động trong các cuộc đàm phán ngoại giao sắp tới. Đây là bài học quý báu về việc vận dụng linh hoạt ngoại giao trong hoàn cảnh bất lợi.",
     url:
       "https://lilac-wolf-31a.notion.site/Ch-ng-2-ng-l-nh-o-2-cu-c-kh-ng-chi-n-ho-n-th-nh-gi-i-ph-ng-d-n-t-c-th-ng-nh-t-t-n-c-1945-28c775060d0080e2b7d6d78814df08b4",
     imageQuery: "Chongqing",
+    relatedDocuments: ["chongqing-accord"],
+    hasMapData: true,
   },
   {
     title: "02/03/1946",
     cardTitle: "Quốc hội họp, thành lập Chính phủ chính thức",
     cardSubtitle: "Củng cố chính quyền",
+    cardSummaryText: "Thành lập Ban Thường trực và Chính phủ 10 bộ.",
     cardDetailedText:
       "Quốc hội khóa I họp; thành lập Ban Thường trực (Nguyễn Văn Tố), tổ chức Chính phủ gồm 10 bộ; Chủ tịch Hồ Chí Minh đứng đầu.",
     url:
       "https://lilac-wolf-31a.notion.site/Ch-ng-2-ng-l-nh-o-2-cu-c-kh-ng-chi-n-ho-n-th-nh-gi-i-ph-ng-d-n-t-c-th-ng-nh-t-t-n-c-1945-28c775060d0080e2b7d6d78814df08b4",
     imageQuery: "National Assembly of Vietnam",
+    relatedFigures: ["ho-chi-minh", "nguyen-van-to"],
   },
   {
     title: "06/03/1946",
     cardTitle: "Hiệp định sơ bộ Việt – Pháp",
     cardSubtitle: "Thỏa thuận tạm thời",
+    cardSummaryText: "Pháp thừa nhận VNDCCH, Việt Nam cho phép quân Pháp trở lại.",
     cardDetailedText:
       "Hiệp định sơ bộ Việt-Pháp được ký kết tại Hà Nội đánh dấu một bước ngoặt quan trọng trong quan hệ Việt-Pháp sau Cách mạng Thám Tám. Theo hiệp định, Pháp chính thức thừa nhận Việt Nam Dân chủ Cộng hòa là một quốc gia tự do trong Liên hiệp Pháp và Liên bang Đông Dương, đồng thời công nhận quyền tự trị của Việt Nam trong nội chính. Đổi lại, Việt Nam đồng ý cho quân Pháp trở lại miền Bắc để thay thế quân Tưởng Giới Thạch với cam kết rút dần trong 5 năm. Mặc dù bị nhiều người chỉ trích là 'nhượng bộ', Chủ tịch Hồ Chí Minh đã giải thích rằng đây là quyết định chiến lược nhằm tranh thủ thời gian xây dựng lực lượng và tránh chiến tranh trên hai mặt trận. Ông nói: 'Thà ngửi phân Tây 5 năm, chứ không ăn phân Tàu cả đời'. Hiệp định này thể hiện tài năng ngoại giao của lãnh đạo Việt Nam trong việc tận dụng mâu thuẫn giữa các cường quốc để bảo vệ độc lập dân tộc.",
     url:
       "https://lilac-wolf-31a.notion.site/Ch-ng-2-ng-l-nh-o-2-cu-c-kh-ng-chi-n-ho-n-th-nh-gi-i-ph-ng-d-n-t-c-th-ng-nh-t-t-n-c-1945-28c775060d0080e2b7d6d78814df08b4",
     imageQuery: "Ho Chi Minh signing agreement with French",
+    relatedFigures: ["ho-chi-minh", "jean-sainteny"],
+    relatedDocuments: ["franco-vietnamese-agreement"],
+    hasMapData: true,
   },
   {
     title: "Cuối 1946",
     cardTitle: "Bình dân học vụ: 2,5 triệu người biết chữ",
     cardSubtitle: "Chống giặc dốt",
+    cardSummaryText: "Phong trào 'Toàn dân học chữ quốc ngữ' thành công rực rỡ.",
     cardDetailedText:
       "Phong trào 'Bình dân học vụ' được phát động mạnh mẽ trên toàn quốc với khẩu hiệu 'Toàn dân học chữ quốc ngữ' đã trở thành một cuộc cách mạng văn hóa thực sự. Trong bối cảnh hơn 95% dân số mù chữ do chế độ thực dân để lại, chính phủ cách mạng đã xác định việc xóa nạn mù chữ là nhiệm vụ cấp bách để nâng cao dân trí và xây dựng đất nước. Các lớp học được tổ chức khắp nơi từ thành thị đến nông thôn, từ cơ quan, nhà máy đến các làng xã. Người biết chữ dạy người chưa biết, tạo nên phong trào học tập sôi nổi trong toàn xã hội. Kết quả đáng kinh ngạc: chỉ trong thời gian ngắn, đã có 2,5 triệu người biết chữ, giảm đáng kể tỷ lệ mù chữ. Đồng thời, phong trào này còn góp phần xây dựng nếp sống mới, văn minh, đẩy lùi các tệ nạn xã hội như cờ bạc, hút thuốc phiện, mê tín dị đoan. Đây là minh chứng rõ nét cho chính sách 'dân có, dân biết, dân làm, dân hưởng' của chính quyền cách mạng.",
     url:
@@ -151,8 +170,9 @@ export const timelineItems: TimelineItem[] = [
     title: "Cuối 1946",
     cardTitle: "Củng cố lực lượng vũ trang",
     cardSubtitle: "Chuẩn bị kháng chiến lâu dài",
+    cardSummaryText: "Mở rộng quân đội lên 80.000 quân chính quy.",
     cardDetailedText:
-      "Nhận thức rõ nguy cơ chiến tranh bùng nổ, chính phủ cách mạng đã tập trung xây dựng và củng cố lực lượng vũ trang một cách có hệ thống và quyết liệt. Quân đội nhân dân Việt Nam được mở rộng lên 80.000 quân chính quy với tổ chức chặt chẽ, kỷ luật nghiêm minh và tinh thần chiến đấu cao. Lực lượng công an được thành lập và phát triển đến tận cấp huyện, đảm bảo an ninh trật tự và bảo vệ chính quyền cách mạng. Đặc biệt, hàng vạn dân quân tự vệ được tổ chức tại các địa phương, tạo nên lực lượng quần chúng vũ trang hùng hậu. Bên cạnh việc xây dựng lực lượng, chính phủ còn tích cực mua sắm vũ khí, đạn dược từ nhiều nguồn khác nhau, đồng thời chuẩn bị các căn cứ địa cách mạng ở vùng núi, vùng rừng để làm hậu phương vững chắc cho cuộc kháng chiến lâu dài. Những chuẩn bị chu đáo này đã tạo nền tảng quan trọng cho thắng lợi của cuộc kháng chiến chống thực dân Pháp sau này.",
+      "Nhận thức rõ nguy cơ chiến tranh bùng nổ, chính phủ cách mạng đã tập trung xây dựng và củng cố lực lượng vũ trang một cách có hệ thống và quyết liệt. Quân đội nhân dân Việt Nam được mở rộng lên 80.000 quân chính quy với tổ chức hoàn chỉnh từ trung đoàn đến tiểu đoàn, được trang bị vũ khí hiện đại hơn và được huấn luyện theo phương pháp quân sự khoa học. Đồng thời, lực lượng bán chính quy và dân quân tự vệ cũng được phát triển mạnh mẽ ở các địa phương, tạo thành hệ thống quốc phòng toàn dân vững chắc. Các căn cứ địa được xây dựng ở những vùng núi hiểm trở, chuẩn bị sẵn sàng cho cuộc kháng chiến lâu dài. Việc củng cố lực lượng vũ trang này đã tạo nền tảng quan trọng cho những chiến thắng vẻ vang trong cuộc kháng chiến chống thực dân Pháp sau này.",
     url:
       "https://lilac-wolf-31a.notion.site/Ch-ng-2-ng-l-nh-o-2-cu-c-kh-ng-chi-n-ho-n-th-nh-gi-i-ph-ng-d-n-t-c-th-ng-nh-t-t-n-c-1945-28c775060d0080e2b7d6d78814df08b4",
     imageQuery: "Vietnam People's Army",
@@ -161,8 +181,9 @@ export const timelineItems: TimelineItem[] = [
     title: "09/11/1946",
     cardTitle: "Thông qua Hiến pháp 1946",
     cardSubtitle: "Nền tảng pháp lý quốc gia",
+    cardSummaryText: "Hiến pháp dân chủ đầu tiên trong lịch sử dân tộc.",
     cardDetailedText:
-      "Kỳ họp thứ 2 của Quốc hội khóa I đã thông qua Hiến pháp 1946 - một sự kiện có ý nghĩa lịch sử to lớn, đánh dấu việc Việt Nam có được bản Hiến pháp dân chủ đầu tiên trong lịch sử dân tộc. Hiến pháp này được soạn thảo dựa trên tinh thần dân chủ tiến bộ, thể hiện ý chí và nguyện vọng của toàn thể nhân dân Việt Nam. Văn kiện quan trọng này đã xác lập rõ ràng nguyên tắc 'quyền lực thuộc về nhân dân', khẳng định chế độ dân chủ cộng hòa với Quốc hội là cơ quan quyền lực nhà nước cao nhất. Hiến pháp quy định đầy đủ các quyền tự do cơ bản của công dân như quyền bầu cử, quyền tự do ngôn luận, báo chí, hội họp, tín ngưỡng, và đặc biệt là quyền bình đẳng giữa các dân tộc, nam nữ. Đây không chỉ là nền tảng pháp lý vững chắc cho việc xây dựng nhà nước mới mà còn là biểu tượng của chủ quyền quốc gia và ý chí độc lập của dân tộc Việt Nam.",
+      "Kỳ họp thứ 2 của Quốc hội khóa I đã thông qua Hiến pháp 1946 - một sự kiện có ý nghĩa lịch sử to lớn, đánh dấu việc Việt Nam có được bản Hiến pháp dân chủ đầu tiên trong lịch sử dân tộc. Hiến pháp này được soạn thảo dựa trên tinh thần dân chủ tiến bộ, thể hiện ý chí và nguyện vọng của toàn thể nhân dân Việt Nam. Văn kiện quan trọng này đã xác lập rõ rang nguyên tắc 'quyền lực thuộc về nhân dân', khẳng định chế độ dân chủ cộng hòa với Quốc hội là cơ quan quyền lực nhà nước cao nhất. Hiến pháp quy định đầy đủ các quyền tự do cơ bản của công dân như quốc hội và ý chí độc lập của dân tộc Việt Nam.",
     url:
       "https://lilac-wolf-31a.notion.site/Ch-ng-2-ng-l-nh-o-2-cu-c-kh-ng-chi-n-ho-n-th-nh-gi-i-ph-ng-d-n-t-c-th-ng-nh-t-t-n-c-1945-28c775060d0080e2b7d6d78814df08b4",
     imageQuery: "Constitution of Vietnam",

@@ -92,7 +92,16 @@ namespace MortarGame.UI
 
         public void UpdateStreak(int streak)
         {
-            if (streakText) streakText.text = $"Streak: {streak}";
+            Debug.Log($"HUDController.UpdateStreak called with streak: {streak}");
+            if (streakText) 
+            {
+                streakText.text = $"Streak: {streak}";
+                Debug.Log($"HUDController: Set streakText to: '{streakText.text}'");
+            }
+            else
+            {
+                Debug.LogWarning("HUDController: streakText is null!");
+            }
         }
 
         public void UpdateScore(int score)
